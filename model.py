@@ -1,3 +1,4 @@
+#model.py
 from sqlalchemy import Column, Integer, String, DateTime, Date, Boolean, ForeignKey, Enum
 from sqlalchemy.orm import relationship
 from database import Base
@@ -15,6 +16,7 @@ class User(Base):
     __tablename__ = 'user'
     user_id = Column(String(255), primary_key=True, index=True)
     username = Column(String(10), unique=True, nullable=False)
+    email = Column(String(255), unique=True, nullable=False)
     point = Column(Integer)
     profile_pathname = Column(String(255))
     password = Column(String(255), nullable=False)
@@ -22,9 +24,10 @@ class User(Base):
     year = Column(Integer)
     created_date = Column(DateTime, default=datetime.now(timezone.utc))
     modified_date = Column(DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
-
+    is_active = Column(Boolean, default=False)
     # Define the one-to-many relationship
     transaction_posts = relationship("TransactionPost", back_populates="user")
+
 
 class TransactionPost(Base):
     __tablename__ = "transaction_post"

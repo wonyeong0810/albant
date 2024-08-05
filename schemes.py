@@ -1,15 +1,24 @@
-from pydantic import BaseModel
+#schemes.py
+from pydantic import BaseModel, EmailStr
 from datetime import date, datetime
 
 # 사용자 생성을 위한 스키마
 class UserCreate(BaseModel):
     username: str
     password: str
+    department: int | None = None
+    year: int | None = None
+    email: str | None = None
+    profile_pathname: str | None = None
 
 # 사용자 읽기를 위한 스키마
 class UserOut(BaseModel):
     username: str
-    user_id: str  # user_id 반환 필요성에 따라 포함
+    password: str
+    department: int | None = None
+    year: int | None = None
+    email: str | None = None
+    profile_pathname: str | None = None
 
     class Config:
         orm_mode = True
@@ -40,3 +49,6 @@ class TransactionPostOut(TransactionPostBase):
 
     class Config:
         orm_mode = True
+        
+class EmailSchema(BaseModel):
+    email: EmailStr
