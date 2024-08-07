@@ -50,5 +50,7 @@ class TransactionPostOut(TransactionPostBase):
     class Config:
         orm_mode = True
         
-class EmailSchema(BaseModel):
+    
+class VerificationCodeModel(BaseModel):
     email: EmailStr
+    code: int

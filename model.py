@@ -25,13 +25,15 @@ class User(Base):
     created_date = Column(DateTime, default=datetime.now(timezone.utc))
     modified_date = Column(DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
     is_active = Column(Boolean, default=False)
+    verification_code = Column(Integer, nullable=True)
+    
     # Define the one-to-many relationship
     transaction_posts = relationship("TransactionPost", back_populates="user")
 
 
 class TransactionPost(Base):
     __tablename__ = "transaction_post"
-    transaction_post_id = Column(String(255), primary_key=True, index=True)
+    transaction_post_id = Column(String(255), primary_key=True, index=True, default=lambda: str(uuid4()))
     user_id = Column(String(255), ForeignKey("user.user_id"), nullable=False)
     title = Column(String(500), nullable=False)
     content = Column(String(5000), nullable=False)
