@@ -31,7 +31,6 @@ class TransactionPostService:
 
     async def get_all_transaction_posts(self) -> list[TransactionPost]:
         return self.repository.get_all_posts()
-    
     async def get_current_user(self, token: str, db: Session):
         credentials_exception = HTTPException(
             status_code=401,
